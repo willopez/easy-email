@@ -21,7 +21,10 @@
     "typings": "tsc --declaration --emitDeclarationOnly --project tsconfig.lib.json && tsc-alias -p tsconfig.alias.json",
     "build": "rimraf lib && npm run typings && vite build --config vite.config.ts",
     "format": "eslint --fix  --ext .tsx,.ts,.tsx src/",
-    "test": "jest  --coverage"
+    "test": "jest  --coverage",
+    "unpublish-library": "npm unpublish @seed/easy-email-extensions --force",
+    "update-version": "npm version patch --force",
+    "publish-library": "npm run build && npm run update-version && npm run unpublish-library && npm publish"
   },
   "husky": {
     "hooks": {

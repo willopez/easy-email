@@ -1,8 +1,8 @@
 {
-  "name": "easy-email-editor",
+  "name": "@seedmail/easy-email-editor",
   "license": "MIT",
   "description": "Email editor",
-  "version": "4.11.0",
+  "version": "4.11.10",
   "author": "m-Ryan",
   "repository": {
     "type": "git",
@@ -20,7 +20,10 @@
     "dev": "vite",
     "typings": "tsc --declaration --emitDeclarationOnly --project tsconfig.lib.json && tsc-alias -p tsconfig.alias.json",
     "build": "rimraf lib && npm run typings && vite build --config vite.config.ts",
-    "format": "eslint --fix  --ext .tsx,.ts,.tsx src/"
+    "format": "eslint --fix  --ext .tsx,.ts,.tsx src/",
+    "unpublish-library": "npm unpublish @seedmail/easy-email-editor --force",
+    "update-version": "npm version patch --force",
+    "publish-library": "npm run build && npm run update-version && npm run unpublish-library && npm publish"
   },
   "husky": {
     "hooks": {

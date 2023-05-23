@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import { useActiveTab } from '@/hooks/useActiveTab';
 import { ActiveTabKeys } from '@/components/Provider/BlocksProvider';
 import { usePreviewEmail } from '@/hooks/usePreviewEmail';
@@ -8,32 +8,29 @@ import { SyncScrollShadowDom } from '@/components/UI/SyncScrollShadowDom';
 import { classnames } from '@/utils/classnames';
 import { SYNC_SCROLL_ELEMENT_CLASS_NAME } from '@/constants';
 import { createPortal } from 'react-dom';
-import Frame from 'react-frame-component';
+import Frame, { useFrame } from 'react-frame-component';
 
 export function DesktopEmailPreview() {
   const { activeTab } = useActiveTab();
   const { errMsg, html, reactNode } = usePreviewEmail();
-  const [iframeRoot, setIframeRoot] = useState(
-    document.getElementById('desktop-email-preview-root'),
-  );
-  console.log('rootNode', document.getElementById('desktop-email-preview-root'));
+  const { document: iframeDoc, window: iframeWindow } = useFrame();
 
-  // console.log('html', html);
+  // const [iframeRootNode, setIframeRootNode] = useState<null | HTMLElement>(null);
 
-  const EmailPreview = () => {
-    return (
-      <Frame initialContent={html} />
-    );
-  };
+  // const EmailPreview = () => {
+  //   return (
+  //     <Frame initialContent={html}>
+  //       <p>Hello from iframe</p>
+  //     </Frame>
+  //   );
+  // };
 
-  useEffect(() => {
-    // const iframeRootNode = document.getElementById('desktop-email-preview-root');
-    console.log('root', iframeRoot);
-    if (!iframeRoot) return;
-    ReactDOM.render(<EmailPreview />, iframeRoot);
-    // iframeRoot.render(<EmailPreview />);
-    // setIframeRoot(iframeRoot);
-  }, [iframeRoot]);
+  // useEffect(() => {
+  //   const iframeRootNode = document.getElementById('desktop-email-preview-root');
+  //   console.log('iframeRootNode', iframeRootNode);
+  //   if (!iframeRootNode) return;
+  //   setIframeRootNode(iframeRootNode);
+  // }, [iframeRootNode]);
 
   // debugger;
   const { pageData } = useEditorContext();
@@ -52,7 +49,8 @@ export function DesktopEmailPreview() {
     );
   }
 
-  console.log('iframe', iframeRoot);
+  // console.log('iframeWindow', iframeWindow);
+  // console.log('iframeDoc', iframeDoc.element);
 
   return (
     <div
@@ -61,17 +59,10 @@ export function DesktopEmailPreview() {
       }}
     >
       <div id='desktop-email-preview-root' />
-      {/* <Frame
-        // isActive={isActive}
-        initialContent={html}
-        style={{
-          border: 'none',
-          height: '100%',
-          width: '100%',
-        }}
-      /> */}
-      {/* <SyncScrollShadowDom
+      <SyncScrollShadowDom
         isActive={isActive}
+        iframewin={iframeWindow!}
+        iframedoc={iframeDoc!}
         style={{
           border: 'none',
           height: '100%',
@@ -102,14 +93,24 @@ export function DesktopEmailPreview() {
               overflow: 'auto',
               margin: 'auto',
 
-              paddingLeft: 10,
-              paddingRight: 10,
+              // paddingLeft: 10,
+              // paddingRight: 10,
               paddingTop: 40,
-              paddingBottom: 140,
+              // paddingBottom: 140,
               boxSizing: 'border-box',
             }}
           >
-            <>{reactNode}</>
+            {/* <>{reactNode}</> */}
+            <Frame
+              // initialContent={}
+              style={{
+                border: 'none',
+                height: '100%',
+                width: '100%',
+              }}
+            >
+              {reactNode}
+            </Frame>
           </div>
           {createPortal(
             <>
@@ -125,7 +126,7 @@ export function DesktopEmailPreview() {
             document.body,
           )}
         </>
-      </SyncScrollShadowDom> */}
+      </SyncScrollShadowDom>
     </div>
   );
 }

@@ -23,7 +23,10 @@
     "build": "rimraf lib  && npm run typings && tsc-alias  && vite build --config vite.config.ts",
     "block": "ts-node -r tsconfig-paths/register scripts/generateBlockJSX.ts",
     "format": "eslint --fix  --ext .tsx,.ts,.tsx src/",
-    "test": "jest  --coverage"
+    "test": "jest  --coverage",
+    "unpublish-library": "npm unpublish @seed/easy-email-core --force",
+    "update-version": "npm version patch --force",
+    "publish-library": "npm run build && npm run update-version && npm run unpublish-library && npm publish"
   },
   "husky": {
     "hooks": {

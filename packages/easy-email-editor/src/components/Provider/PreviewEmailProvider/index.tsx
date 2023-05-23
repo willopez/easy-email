@@ -47,6 +47,7 @@ export const PreviewEmailProvider: React.FC<{ children?: React.ReactNode }> = pr
     if (breakpoint > 360) {
       adjustBreakPoint = Math.max(mobileWidth + 1, breakpoint);
     }
+
     const cloneData = {
       ...lazyPageData,
       data: {
@@ -57,6 +58,10 @@ export const PreviewEmailProvider: React.FC<{ children?: React.ReactNode }> = pr
         },
       },
     };
+
+    // cloneData is a JSON object that represents the current state of the editor.
+    // JsonToMjml coverts the JSON object to a MJML string.
+    // mjml( from mjml-browser) converts the MJML string to HTML.
     let parseHtml = mjml(
       JsonToMjml({
         data: cloneData,
@@ -66,6 +71,10 @@ export const PreviewEmailProvider: React.FC<{ children?: React.ReactNode }> = pr
         keepClassName: true,
       }),
     ).html;
+    // parseHtml is the email HTML as a string.
+    // debugger;
+
+    // Merge tags are used to inject data into the email.
     if (onBeforePreview) {
       try {
         const result = onBeforePreview(parseHtml, injectData);

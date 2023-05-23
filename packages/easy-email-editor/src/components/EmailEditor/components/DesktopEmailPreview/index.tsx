@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { useActiveTab } from '@/hooks/useActiveTab';
 import { ActiveTabKeys } from '@/components/Provider/BlocksProvider';
 import { usePreviewEmail } from '@/hooks/usePreviewEmail';
@@ -7,11 +8,34 @@ import { SyncScrollShadowDom } from '@/components/UI/SyncScrollShadowDom';
 import { classnames } from '@/utils/classnames';
 import { SYNC_SCROLL_ELEMENT_CLASS_NAME } from '@/constants';
 import { createPortal } from 'react-dom';
+import Frame from 'react-frame-component';
 
 export function DesktopEmailPreview() {
   const { activeTab } = useActiveTab();
-  const { errMsg, reactNode } = usePreviewEmail();
+  const { errMsg, html, reactNode } = usePreviewEmail();
+  const [iframeRoot, setIframeRoot] = useState(
+    document.getElementById('desktop-email-preview-root'),
+  );
+  console.log('rootNode', document.getElementById('desktop-email-preview-root'));
 
+  // console.log('html', html);
+
+  const EmailPreview = () => {
+    return (
+      <Frame initialContent={html} />
+    );
+  };
+
+  useEffect(() => {
+    // const iframeRootNode = document.getElementById('desktop-email-preview-root');
+    console.log('root', iframeRoot);
+    if (!iframeRoot) return;
+    ReactDOM.render(<EmailPreview />, iframeRoot);
+    // iframeRoot.render(<EmailPreview />);
+    // setIframeRoot(iframeRoot);
+  }, [iframeRoot]);
+
+  // debugger;
   const { pageData } = useEditorContext();
 
   const fonts = useMemo(() => {
@@ -28,13 +52,25 @@ export function DesktopEmailPreview() {
     );
   }
 
+  console.log('iframe', iframeRoot);
+
   return (
     <div
       style={{
         height: '100%',
       }}
     >
-      <SyncScrollShadowDom
+      <div id='desktop-email-preview-root' />
+      {/* <Frame
+        // isActive={isActive}
+        initialContent={html}
+        style={{
+          border: 'none',
+          height: '100%',
+          width: '100%',
+        }}
+      /> */}
+      {/* <SyncScrollShadowDom
         isActive={isActive}
         style={{
           border: 'none',
@@ -89,7 +125,7 @@ export function DesktopEmailPreview() {
             document.body,
           )}
         </>
-      </SyncScrollShadowDom>
+      </SyncScrollShadowDom> */}
     </div>
   );
 }

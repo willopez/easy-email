@@ -178,11 +178,11 @@ const fontList = [
 
 export default function Editor() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [theme, setTheme] = useState<'blue' | 'green' | 'purple'>('blue');
+  const [theme, setTheme] = useState<'blue' | 'green' | 'purple'>('purple');
   const dispatch = useDispatch();
   const history = useHistory();
   const templateData = useAppSelector('template');
-  const [locale, setLocale] = useState('zh-Hans');
+  const [locale, setLocale] = useState('en-US');
   const { addCollection, removeCollection, collectionCategory } = useCollection();
 
   const { width } = useWindowSize();

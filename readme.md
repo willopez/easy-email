@@ -15,7 +15,7 @@
     <img alt="" src="https://badgen.net/npm/v/easy-email-editor">
   </a>
   <a aria-label="React version" href="https://react.js">
-    <img alt="" src="https://img.shields.io/badge/React-17.0-yellow.svg">
+    <img alt="" src="https://img.shields.io/badge/React-18.2-yellow.svg">
   </a>
   <a aria-label="MJML" href="https://mjml.io/">
     <img src="https://img.shields.io/badge/MJML-awesome-rgb(120 33 117).svg">
@@ -59,13 +59,6 @@ Check out the live demo here: <a href="https://email.maocanhua.cn/?utm_source=gi
 <img alt="" src="./work.png">
 
 </br>
-
-## Roadmap
-
-- Localization in progress.
-- Awesome responsive, support mobile and desktop display different styles (without any compatibility issues)
-- Replace shadow dom with iframe, support firefox/safari browsers.
-- Improve documentation and add more usage examples
 
 ## Donation
 

@@ -33,8 +33,8 @@
     ]
   },
   "dependencies": {
-    "final-form": "^4.20.4",
-    "final-form-arrays": "^3.0.2",
+    "final-form": "^4.20.9",
+    "final-form-arrays": "^3.1.0",
     "final-form-set-field-touched": "^1.0.1",
     "is-hotkey": "^0.2.0",
     "lodash": "^4.17.21",
@@ -60,7 +60,7 @@
     "mjml-browser": "^4.10.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-final-form": "^6.5.7",
+    "react-final-form": "^6.5.9",
     "rimraf": "^3.0.2",
     "sass": "^1.43.4",
     "tsc-alias": "^1.4.1",
@@ -72,7 +72,7 @@
     "mjml-browser": "^4.10.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-final-form": "^6.5.7"
+    "react-final-form": "^6.5.9"
   },
   "gitHead": "2a08e8af15766344de708d891c1c8ea31bb77646"
 }

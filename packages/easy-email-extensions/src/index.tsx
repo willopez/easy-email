@@ -1,4 +1,4 @@
-import './index.scss';
+import './index.module.scss';
 
 export * from './BlockLayer';
 export * from './AttributePanel';

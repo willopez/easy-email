@@ -26,19 +26,22 @@
     }
   }
 }
-:global(#BlockLayerManager .arco-tree-node-expanded) {
-  overflow: hidden;
-}
 
-:global(#BlockLayerManager .arco-tree-node-selected .arco-tree-node-title) {
-  background-color: rgb(var(--primary-1));
-}
-:global(#BlockLayerManager .arco-tree-node-title:hover .icon-eye) {
-  opacity: 1;
-}
-:global(#BlockLayerManager .arco-tree-node-indent-block) {
-  width: 8px;
-}
-:global(#BlockLayerManager .arco-tree-node-drag-icon) {
-  cursor: grab;
+.blockLayerContainer {
+  :global(#BlockLayerManager .arco-tree-node-expanded) {
+    overflow: hidden;
+  }
+
+  :global(#BlockLayerManager .arco-tree-node-selected .arco-tree-node-title) {
+    background-color: rgb(var(--primary-1));
+  }
+  :global(#BlockLayerManager .arco-tree-node-title:hover .icon-eye) {
+    opacity: 1;
+  }
+  :global(#BlockLayerManager .arco-tree-node-indent-block) {
+    width: 8px;
+  }
+  :global(#BlockLayerManager .arco-tree-node-drag-icon) {
+    cursor: grab;
+  }
 }

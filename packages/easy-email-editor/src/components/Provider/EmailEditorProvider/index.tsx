@@ -29,14 +29,20 @@ export const EmailEditorProvider = <T extends any>(
   props: EmailEditorProviderProps & T,
 ) => {
   const { data, children, onSubmit = () => {}, validationSchema } = props;
+  console.log('data', data);
 
+  console.log('useMemo', useMemo);
   const initialValues = useMemo(() => {
     return {
-      subject: data.subject,
-      subTitle: data.subTitle,
-      content: data.content,
+      subject: 'subject',
+      subTitle: 'title',
+      content: {},
     };
   }, [data]);
+
+  console.log('initialValues', initialValues);
+
+  debugger;
 
   useEffect(() => {
     overrideErrorLog();

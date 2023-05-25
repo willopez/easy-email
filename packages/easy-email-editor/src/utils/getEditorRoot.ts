@@ -1,2 +1,4 @@
 export const getEditorRoot = () =>
-  document.getElementById('VisualEditorEditMode');
+  window.frames['VisualEditorEditModeIFrame'].contentDocument.getElementById(
+    'VisualEditorEditModeRoot',
+  );

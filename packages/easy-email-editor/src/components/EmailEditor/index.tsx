@@ -1,4 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
+import Frame, { FrameContextConsumer } from 'react-frame-component';
+
 import { Stack } from '../UI/Stack';
 import { ToolsPanel } from './components/ToolsPanel';
 import { createPortal } from 'react-dom';
@@ -29,9 +31,12 @@ export const EmailEditor = () => {
     return EventManager.exec(EventType.ACTIVE_TAB_CHANGE, { currentTab, nextTab });
   }, []);
 
-  const onChangeTab = useCallback((nextTab: string) => {
-    setActiveTab(nextTab as any);
-  }, [setActiveTab]);
+  const onChangeTab = useCallback(
+    (nextTab: string) => {
+      setActiveTab(nextTab as any);
+    },
+    [setActiveTab],
+  );
 
   return useMemo(
     () => (
@@ -55,33 +60,78 @@ export const EmailEditor = () => {
         >
           <TabPane
             style={{ height: 'calc(100% - 50px)' }}
-            tab={(
+            tab={
               <Stack spacing='tight'>
                 <IconFont iconName='icon-editor' />
               </Stack>
-            )}
+            }
             key={ActiveTabKeys.EDIT}
           >
-            <EditEmailPreview />
+            {/* <EditEmailPreview /> */}
+
+            <Frame
+              id='VisualEditorEditModeIFrame'
+              style={{
+                border: 'none',
+                height: '100%',
+                width: '100%',
+              }}
+            >
+              <FrameContextConsumer>
+                {
+                  // Callback is invoked with iframe's window and document instances
+                  ({ document: doc, window: win }) => {
+                    console.log('document', doc);
+                    console.log('window', win);
+                    // Render Children
+                    return (
+                      <EditEmailPreview
+                        winRef={doc}
+                        docRef={win}
+                      />
+                    );
+                  }
+                }
+              </FrameContextConsumer>
+            </Frame>
           </TabPane>
           <TabPane
             style={{ height: 'calc(100% - 50px)' }}
-            tab={(
+            tab={
               <Stack spacing='tight'>
                 <IconFont iconName='icon-desktop' />
               </Stack>
-            )}
+            }
             key={ActiveTabKeys.PC}
           >
-            <DesktopEmailPreview />
+            <DesktopEmailPreview />;
+            {/* <Frame
+              style={{
+                border: 'none',
+                height: '100%',
+                width: '100%',
+              }}
+            >
+              <FrameContextConsumer>
+                {
+                  // Callback is invoked with iframe's window and document instances
+                  ({ document, window }) => {
+                    console.log('document', document);
+                    console.log('window', window);
+                    // Render Children
+                    return <DesktopEmailPreview />;
+                  }
+                }
+              </FrameContextConsumer>
+            </Frame> */}
           </TabPane>
           <TabPane
             style={{ height: 'calc(100% - 50px)' }}
-            tab={(
+            tab={
               <Stack spacing='tight'>
                 <IconFont iconName='icon-mobile' />
               </Stack>
-            )}
+            }
             key={ActiveTabKeys.MOBILE}
           >
             <MobileEmailPreview />
@@ -90,6 +140,6 @@ export const EmailEditor = () => {
         <>{fixedContainer}</>
       </div>
     ),
-    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab]
+    [activeTab, containerHeight, fixedContainer, onBeforeChangeTab, onChangeTab],
   );
 };
